@@ -21,7 +21,7 @@ def import_rss(
     for entry in feed.entries:
         title = (entry.get("title") or "").strip()
         summary = (entry.get("summary") or entry.get("description") or "").strip()
-        link = entry.get("link") or ""
+        link = (entry.get("link") or "").split("#")[0]
         if not title:
             continue
         if keywords:

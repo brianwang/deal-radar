@@ -44,6 +44,9 @@
           {% if d.reason %}<small class="reason">{{ d.reason }}{% if d.risk %} · 风险：{{ d.risk }}{% endif %}</small>{% endif %}
         </span>
       </a>
+      {% if d.url %}
+      <a class="ext-link" href="{{ d.url }}" target="_blank" rel="noreferrer" title="{{ d.url }}">原帖 ↗</a>
+      {% endif %}
     </li>
     {% endfor %}
   </ul>

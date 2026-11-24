@@ -83,10 +83,16 @@ button.primary { background: var(--accent); border-color: var(--accent); color: 
 .manual summary { cursor: pointer; color: var(--muted); }
 
 .demand-list { list-style: none; margin: 0; padding: 0; }
-.demand-item { border-top: 1px solid var(--border); }
+.demand-item {
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
 .demand-item:first-child { border-top: none; }
 
 .demand-main {
+  flex: 1;
   display: flex;
   gap: 14px;
   align-items: flex-start;
@@ -96,6 +102,17 @@ button.primary { background: var(--accent); border-color: var(--accent); color: 
 .demand-main:hover { background: #1c202a; text-decoration: none; border-radius: 8px; }
 .demand-body { display: flex; flex-direction: column; gap: 2px; }
 .reason { color: var(--muted); font-size: 13px; }
+
+.ext-link {
+  flex: 0 0 auto;
+  font-size: 12px;
+  color: var(--muted);
+  padding: 6px 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  white-space: nowrap;
+}
+.ext-link:hover { color: var(--accent); border-color: var(--accent); text-decoration: none; }
 
 .score {
   display: inline-flex;

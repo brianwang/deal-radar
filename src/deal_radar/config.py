@@ -16,7 +16,10 @@ class Settings(BaseSettings):
     llm_api_key: str = "ollama"
     llm_model: str = "deepseek-v4.1-flash:cloud"
     deal_radar_db: str = "data/deal_radar.db"
-    skill_profile: str = "AI 应用开发、Python、大模型应用（RAG/Agent）、BIM/CAD 行业工具定制"
+    skill_profile: str = (
+        "全栈开发：前端（React/Vue/TypeScript）、后端（Java/Python/Go/Rust）、"
+        "数据库与部署；AI 应用：LLM/RAG/Agent/MCP；BIM/CAD；自动化脚本；可远程独立交付"
+    )
 
     @property
     def db_path(self) -> Path:

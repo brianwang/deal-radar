@@ -13,7 +13,7 @@
   </header>
   <main class="container">
     {% if error %}<div class="alert error">出错：{{ error }}</div>{% endif %}
-    {% if imported is not none %}<div class="alert ok">已导入 {{ imported }} 条新需求</div>{% endif %}
+    {% if imported is defined and imported is not none %}<div class="alert ok">已导入 {{ imported }} 条新需求</div>{% endif %}
     {% block content %}{% endblock %}
   </main>
 </body>
