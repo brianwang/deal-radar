@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}deal-radar{% endblock %}</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/">deal-radar</a>
+    <span class="tagline">AI 接单助手：聚合 · 打分 · 生成投标信</span>
+  </header>
+  <main class="container">
+    {% if error %}<div class="alert error">出错：{{ error }}</div>{% endif %}
+    {% if imported is not none %}<div class="alert ok">已导入 {{ imported }} 条新需求</div>{% endif %}
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>

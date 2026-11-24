@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}{{ demand.title }} · deal-radar{% endblock %}
+{% block content %}
+
+<section class="panel">
+  <a class="back" href="/">← 返回看板</a>
+  <h2>{{ demand.title }}</h2>
+  <p class="meta muted">
+    来源 {{ demand.source }}
+    {% if demand.budget %} · 预算 {{ demand.budget }}{% endif %}
+    {% if demand.url %} · <a href="{{ demand.url }}" target="_blank" rel="noreferrer">原始链接</a>{% endif %}
+  </p>
+  <p class="description">{{ demand.description }}</p>
+
+  <div class="actions">
+    <form method="post" action="/demands/{{ demand.id }}/score">
+      <button type="submit">AI 打分</button>
+    </form>
+    <form method="post" action="/demands/{{ demand.id }}/proposal">
+      <button type="submit" class="primary">生成投标信</button>
+    </form>
+  </div>
+</section>
+
+{% if demand.score is not none %}
+<section class="panel">
+  <h2>匹配度 <span class="score {{ 'high' if demand.score >= 80 else ('mid' if demand.score >= 60 else 'low') }}">{{ demand.score }}</span></h2>
+  <p>{{ demand.reason }}</p>
+  {% if demand.risk %}<p class="muted">主要风险：{{ demand.risk }}</p>{% endif %}
+</section>
+{% endif %}
+
+<section class="panel">
+  <h2>投标信 <span class="muted">{{ proposals|length }} 封</span></h2>
+  {% if not proposals %}<p class="muted">还没有生成投标信。</p>{% endif %}
+  {% for p in proposals %}
+  <article class="proposal">
+    <pre>{{ p.content }}</pre>
+    <div class="proposal-foot">
+      <span class="status status-{{ p.status }}">{{ p.status }}</span>
+      <form method="post" action="/proposals/{{ p.id }}/status" class="inline">
+        <select name="status">
+          <option value="draft">draft</option>
+          <option value="sent">sent</option>
+          <option value="replied">replied</option>
+          <option value="won">won</option>
+          <option value="lost">lost</option>
+        </select>
+        <button type="submit">更新状态</button>
+      </form>
+    </div>
+  </article>
+  {% endfor %}
+</section>
+
+{% endblock %}

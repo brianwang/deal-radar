@@ -1,0 +1,40 @@
+[project]
+name = "deal-radar"
+version = "0.1.0"
+description = "AI 接单助手：聚合需求、智能打分、生成投标信"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi>=0.115",
+    "uvicorn[standard]>=0.32",
+    "jinja2>=3.1",
+    "httpx>=0.27",
+    "python-multipart>=0.0.12",
+    "feedparser>=6.0",
+    "pydantic>=2.9",
+    "pydantic-settings>=2.6",
+    "python-dotenv>=1.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/deal_radar"]
+
+[project.scripts]
+deal-radar = "deal_radar.cli:main"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3",
+    "ruff>=0.7",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

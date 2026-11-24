@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}需求看板 · deal-radar{% endblock %}
+{% block content %}
+
+<section class="panel">
+  <h2>导入需求</h2>
+  <form class="row" method="post" action="/import/rss">
+    <input name="url" type="url" placeholder="RSS 地址（如 Freelancer / 远程工作板）" required>
+    <button type="submit">抓取 RSS</button>
+  </form>
+
+  <details class="manual">
+    <summary>手动粘贴一条需求</summary>
+    <form method="post" action="/demands" class="stack">
+      <input name="title" placeholder="需求标题" required>
+      <textarea name="description" rows="4" placeholder="需求描述" required></textarea>
+      <div class="row">
+        <input name="budget" placeholder="预算（可选）">
+        <input name="url" type="url" placeholder="原始链接（可选）">
+      </div>
+      <button type="submit">添加</button>
+    </form>
+  </details>
+</section>
+
+<section class="panel">
+  <h2>需求看板 <span class="muted">{{ demands|length }} 条</span></h2>
+  {% if not demands %}
+    <p class="muted">还没有需求。先导入 RSS 或手动粘贴一条。</p>
+  {% endif %}
+  <ul class="demand-list">
+    {% for d in demands %}
+    <li class="demand-item">
+      <a class="demand-main" href="/demands/{{ d.id }}">
+        <span class="score {{ 'high' if d.score and d.score >= 80 else ('mid' if d.score and d.score >= 60 else 'low') }}">
+          {{ d.score if d.score is not none else '—' }}
+        </span>
+        <span class="demand-body">
+          <strong>{{ d.title }}</strong>
+          <small class="muted">
+            {{ d.source }}{% if d.budget %} · {{ d.budget }}{% endif %}
+            {% if d.proposal_count %} · 已有 {{ d.proposal_count }} 封投标信{% endif %}
+          </small>
+          {% if d.reason %}<small class="reason">{{ d.reason }}{% if d.risk %} · 风险：{{ d.risk }}{% endif %}</small>{% endif %}
+        </span>
+      </a>
+    </li>
+    {% endfor %}
+  </ul>
+</section>
+
+{% endblock %}
