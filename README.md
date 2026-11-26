@@ -1,5 +1,7 @@
 # deal-radar
 
+[![CI](https://github.com/brianwang/deal-radar/actions/workflows/ci.yml/badge.svg)](https://github.com/brianwang/deal-radar/actions/workflows/ci.yml) ![Python](https://img.shields.io/badge/python-3.11+-blue) ![License](https://img.shields.io/badge/license-MIT-green)
+
 > AI 接单助手：聚合需求、智能打分、生成投标信。**半自动，人工审核后发送。**
 
 做独立接单的人，大部分时间耗在两件事上：在多个平台之间翻找跟自己匹配的需求，以及给每条需求重复写投标信。deal-radar 把这两步自动化，但**保留最后的人工判断**——不自动投标、不自动发消息，既合规，也避免群发垃圾。
